@@ -73,7 +73,7 @@
     .logo-block {
       display: inline-flex;
       flex-direction: column;
-      gap: 0.1em;
+      gap: 0.15em;
       opacity: 0;
       animation: fadeUp 1s var(--ease) 0.1s forwards;
     }
@@ -85,9 +85,8 @@
       color: var(--grey-dk);
       line-height: 1;
       display: block;
-      text-align: justify;
-      text-align-last: justify;
-      letter-spacing: 0.05em;
+      /* width matched to IKKI by JS */
+      width: 100%;
     }
 
     /* IKKI wordmark uses Frankfurter Std */
@@ -98,6 +97,7 @@
       color: var(--white);
       line-height: 1;
       display: block;
+      white-space: nowrap;
       text-rendering: optimizeLegibility;
     }
 
@@ -120,6 +120,7 @@
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
       position: relative;
+      min-height: 0;
     }
 
     /* ─── LEFT COLUMN ─────────────────────────────────────── */
@@ -298,13 +299,14 @@
       overflow: hidden;
       opacity: 0;
       animation: fadeIn 1.4s var(--ease) 0.5s forwards;
+      max-height: 90vh;
     }
 
     .col-image::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, var(--carbon) 0%, transparent 22%);
+      background: linear-gradient(to right, var(--carbon) 0%, transparent 10%);
       z-index: 2;
       pointer-events: none;
     }
@@ -323,19 +325,24 @@
       transition: transform 0.7s var(--ease);
       will-change: transform;
       touch-action: pan-y;
+      /* prevent track from shrinking - fixes last slide disappearing */
+      flex-shrink: 0;
     }
 
     .carousel-slide {
       min-width: 100%;
+      width: 100%;
       height: 100%;
       flex-shrink: 0;
+      flex-grow: 0;
+      overflow: hidden;
     }
 
     .carousel-slide img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center center;
+      object-fit: cover;
+      object-position: center 20%;
       display: block;
       filter: grayscale(15%) contrast(1.05);
     }
@@ -485,12 +492,24 @@
 
       .col-image {
         order: 1;
-        height: 55svh;
-        min-height: 360px;
+        height: 60vw;
+        min-height: 280px;
+        max-height: 420px;
+        max-height: none;
+      }
+
+      .carousel-slide {
+        min-width: 100%;
+        height: 100%;
+      }
+
+      .carousel-slide img {
+        object-fit: cover;
+        object-position: center 20%;
       }
 
       .col-image::before {
-        background: linear-gradient(to bottom, transparent 50%, var(--carbon) 100%);
+        background: linear-gradient(to bottom, transparent 75%, var(--carbon) 100%);
       }
 
       .headline { font-size: clamp(2.2rem, 10vw, 3rem); }
@@ -730,6 +749,34 @@
     }, { passive: true });
 
     startAuto();
+
+    /* ─── LOGO WIDTH MATCH ──────────────────────────────────── */
+    // Make "HOUSE OF" exactly as wide as "IKKI" using letter-spacing
+    function matchLogoWidth() {
+      const wordmark = document.querySelector('.logo-wordmark');
+      const subline  = document.querySelector('.logo-subline');
+      if (!wordmark || !subline) return;
+      const ikkilWidth = wordmark.getBoundingClientRect().width;
+      // Reset first
+      subline.style.letterSpacing = '0';
+      const baseWidth = subline.getBoundingClientRect().width;
+      const text = subline.textContent.trim(); // "HOUSE OF" = 8 chars
+      const gaps = text.length - 1; // letter-spacing applies between chars
+      if (gaps > 0 && baseWidth < ikkilWidth) {
+        const extra = (ikkilWidth - baseWidth) / gaps;
+        subline.style.letterSpacing = extra + 'px';
+      }
+    }
+
+    // Run after fonts load
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(matchLogoWidth);
+    } else {
+      window.addEventListener('load', matchLogoWidth);
+    }
+    // Also run on resize
+    window.addEventListener('resize', matchLogoWidth);
+
   </script>
 
 </body>
