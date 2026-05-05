@@ -71,7 +71,7 @@
     }
 
     .logo-block {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
       gap: 0.1em;
       opacity: 0;
@@ -81,10 +81,13 @@
     .logo-subline {
       font-family: var(--font-mono);
       font-size: 0.6rem;
-      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--grey-dk);
       line-height: 1;
+      display: block;
+      text-align: justify;
+      text-align-last: justify;
+      letter-spacing: 0.05em;
     }
 
     /* IKKI wordmark uses Frankfurter Std */
@@ -94,6 +97,7 @@
       letter-spacing: 0.04em;
       color: var(--white);
       line-height: 1;
+      display: block;
       text-rendering: optimizeLegibility;
     }
 
@@ -310,6 +314,7 @@
       width: 100%;
       height: 100%;
       position: relative;
+      touch-action: pan-y;
     }
 
     .carousel-track {
@@ -317,6 +322,7 @@
       height: 100%;
       transition: transform 0.7s var(--ease);
       will-change: transform;
+      touch-action: pan-y;
     }
 
     .carousel-slide {
@@ -328,8 +334,8 @@
     .carousel-slide img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center top;
+      object-fit: contain;
+      object-position: center center;
       display: block;
       filter: grayscale(15%) contrast(1.05);
     }
@@ -488,7 +494,15 @@
       }
 
       .headline { font-size: clamp(2.2rem, 10vw, 3rem); }
-      .carousel-arrow { display: none; }
+
+      /* Smaller arrows on mobile, but keep visible */
+      .carousel-arrow {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.75rem;
+      }
+      .carousel-arrow.prev { left: 0.5rem; }
+      .carousel-arrow.next { right: 0.5rem; }
 
       footer {
         flex-direction: column;
@@ -616,7 +630,7 @@
       <span class="footer-copy">&copy; 2025 House of IKKI &middot; Vienna</span>
       <nav class="footer-links">
         <a class="footer-link" href="https://www.instagram.com/houseofikki?igsh=MXQ0MG1qejBoOW1pYQ==" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a class="footer-link" href="mailto:">Contact</a>
+        <a class="footer-link" href="https://ig.me/m/houseofikki" target="_blank" rel="noopener noreferrer">Contact</a>
       </nav>
     </footer>
 
@@ -697,10 +711,22 @@
     function resetAuto()  { clearInterval(autoTimer); startAuto(); }
 
     let touchStartX = 0;
-    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) { diff > 0 ? goTo(current + 1) : goTo(current - 1); resetAuto(); }
+    let touchStartY = 0;
+    const carouselEl = document.getElementById('carousel');
+
+    carouselEl.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    carouselEl.addEventListener('touchend', e => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      // Only trigger if horizontal swipe dominates
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 35) {
+        dx > 0 ? goTo(current + 1) : goTo(current - 1);
+        resetAuto();
+      }
     }, { passive: true });
 
     startAuto();
