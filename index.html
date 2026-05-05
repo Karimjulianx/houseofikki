@@ -73,6 +73,7 @@
     .logo-block {
       display: inline-flex;
       flex-direction: column;
+      align-items: center;
       gap: 0.15em;
       opacity: 0;
       animation: fadeUp 1s var(--ease) 0.1s forwards;
@@ -81,12 +82,12 @@
     .logo-subline {
       font-family: var(--font-mono);
       font-size: 0.6rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--grey-dk);
       line-height: 1;
       display: block;
-      /* width matched to IKKI by JS */
-      width: 100%;
+      text-align: center;
     }
 
     /* IKKI wordmark uses Frankfurter Std */
@@ -97,6 +98,7 @@
       color: var(--white);
       line-height: 1;
       display: block;
+      text-align: center;
       white-space: nowrap;
       text-rendering: optimizeLegibility;
     }
@@ -749,33 +751,6 @@
     }, { passive: true });
 
     startAuto();
-
-    /* ─── LOGO WIDTH MATCH ──────────────────────────────────── */
-    // Make "HOUSE OF" exactly as wide as "IKKI" using letter-spacing
-    function matchLogoWidth() {
-      const wordmark = document.querySelector('.logo-wordmark');
-      const subline  = document.querySelector('.logo-subline');
-      if (!wordmark || !subline) return;
-      const ikkilWidth = wordmark.getBoundingClientRect().width;
-      // Reset first
-      subline.style.letterSpacing = '0';
-      const baseWidth = subline.getBoundingClientRect().width;
-      const text = subline.textContent.trim(); // "HOUSE OF" = 8 chars
-      const gaps = text.length - 1; // letter-spacing applies between chars
-      if (gaps > 0 && baseWidth < ikkilWidth) {
-        const extra = (ikkilWidth - baseWidth) / gaps;
-        subline.style.letterSpacing = extra + 'px';
-      }
-    }
-
-    // Run after fonts load
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(matchLogoWidth);
-    } else {
-      window.addEventListener('load', matchLogoWidth);
-    }
-    // Also run on resize
-    window.addEventListener('resize', matchLogoWidth);
 
   </script>
 
