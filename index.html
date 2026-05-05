@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House of IKKI — Coming Soon</title>
+  <meta name="description" content="House of IKKI — Ein ästhetischer Performance Space für ambitionierte Menschen. Vienna, 2025." />
+  <meta property="og:title" content="House of IKKI" />
+  <meta property="og:description" content="Ein ästhetischer Performance Space für ambitionierte Menschen." />
+  <meta property="og:url" content="https://houseofikki.com" />
+
+  <!-- M PLUS 1 Code from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Aileron from CDN Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/aileron" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ──────────────────────────────────────────── */
+    :root {
+      --carbon:   #212427;
+      --white:    #FFFFFF;
+      --celadon:  #A8DCAB;
+      --grey-lt:  #DFE1E2;
+      --grey-dk:  #9EA3A8;
+      --umbra:    #635147;
+
+      --font-primary: 'Aileron', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono:    'M PLUS 1 Code', monospace;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--carbon);
+      color: var(--white);
+      font-family: var(--font-primary);
+      min-height: 100svh;
+      overflow-x: hidden;
+    }
+
+    /* ─── LAYOUT GRID ─────────────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100svh;
+    }
+
+    /* ─── HEADER ──────────────────────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 2.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05em;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.1s forwards;
+    }
+
+    .logo-subline {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey-dk);
+      line-height: 1;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-primary);
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .header-instagram {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey-dk);
+      text-decoration: none;
+      transition: color 0.25s ease;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.2s forwards;
+    }
+    .header-instagram:hover { color: var(--celadon); }
+
+    /* ─── MAIN CONTENT ────────────────────────────────────── */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      position: relative;
+    }
+
+    /* ─── LEFT COLUMN: TEXT ───────────────────────────────── */
+    .col-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2.5rem 4rem 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .label-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--celadon);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.3s forwards;
+    }
+
+    .headline {
+      font-family: var(--font-primary);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 0.15em;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.4s forwards;
+    }
+
+    .headline em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 2.5rem;
+      height: 1px;
+      background: var(--celadon);
+      margin: 2.5rem 0;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.55s forwards;
+    }
+
+    .body-copy {
+      font-family: var(--font-primary);
+      font-weight: 400;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--grey-dk);
+      max-width: 36ch;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.65s forwards;
+    }
+
+    .body-copy strong {
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* ─── NOTIFY FORM ─────────────────────────────────────── */
+    .notify-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 32rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.75s forwards;
+    }
+
+    .notify-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey-dk);
+      margin-bottom: 0.25rem;
+    }
+
+    .notify-row {
+      display: flex;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+    .notify-row:focus-within {
+      border-color: var(--celadon);
+    }
+
+    .notify-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-primary);
+      font-size: 0.8rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .notify-input::placeholder {
+      color: rgba(255,255,255,0.2);
+    }
+
+    .notify-btn {
+      background: var(--celadon);
+      border: none;
+      outline: none;
+      padding: 0.85rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--carbon);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .notify-btn:hover {
+      background: var(--white);
+    }
+
+    .notify-note {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* Success state */
+    .notify-success {
+      display: none;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--celadon);
+    }
+
+    /* ─── LOCATION TAG ────────────────────────────────────── */
+    .location-tag {
+      margin-top: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 0.85s forwards;
+    }
+
+    .location-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--celadon);
+      flex-shrink: 0;
+    }
+
+    .location-text {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey-dk);
+    }
+
+    /* ─── RIGHT COLUMN: IMAGE ─────────────────────────────── */
+    .col-image {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1.4s var(--ease) 0.5s forwards;
+    }
+
+    .col-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        var(--carbon) 0%,
+        transparent 25%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(15%) contrast(1.05);
+    }
+
+    /* Studio label overlaid on image */
+    .studio-label {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2rem;
+      z-index: 3;
+      text-align: right;
+    }
+
+    .studio-label-text {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      display: block;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      opacity: 0;
+      animation: fadeUp 1s var(--ease) 1s forwards;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-link {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover { color: var(--celadon); }
+
+    /* ─── VERTICAL TEXT ACCENT ────────────────────────────── */
+    .vertical-accent {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center center;
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.12);
+      white-space: nowrap;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 2s ease 1.5s forwards;
+    }
+
+    /* ─── GRAIN OVERLAY ───────────────────────────────────── */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header {
+        padding: 1.5rem 1.5rem;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .col-text {
+        padding: 2.5rem 1.5rem 2rem;
+        order: 2;
+      }
+
+      .col-image {
+        order: 1;
+        height: 55svh;
+        min-height: 360px;
+      }
+
+      .col-image::before {
+        background: linear-gradient(
+          to bottom,
+          transparent 50%,
+          var(--carbon) 100%
+        );
+      }
+
+      .headline {
+        font-size: clamp(2.2rem, 10vw, 3rem);
+      }
+
+      .studio-label {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .footer-links {
+        gap: 1.5rem;
+      }
+
+      .vertical-accent {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .notify-btn {
+        padding: 0.85rem 1rem;
+        font-size: 0.52rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain"></div>
+  <div class="vertical-accent">Praterstraße · Vienna · Est. 2025</div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="logo-block">
+        <span class="logo-subline">House of</span>
+        <span class="logo-wordmark">IKKI</span>
+      </div>
+      <a
+        class="header-instagram"
+        href="https://www.instagram.com/houseofikki?igsh=MXQ0MG1qejBoOW1pYQ=="
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="House of IKKI auf Instagram"
+      >@houseofikki</a>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- LEFT: TEXT -->
+      <div class="col-text">
+        <p class="label-tag">Coming Soon</p>
+
+        <h1 class="headline">
+          Ein ästhetischer<br />
+          <em>Performance Space</em><br />
+          für ambitionierte<br />
+          Menschen.
+        </h1>
+
+        <div class="divider"></div>
+
+        <p class="body-copy">
+          House of IKKI ist kein klassisches Pilates Studio —
+          es ist ein <strong>Members Club</strong> für Körperbewusstsein,
+          Disziplin und soziale Verbindung.
+          Performance wird nicht laut inszeniert,
+          sondern selbstbewusst und reduziert.
+        </p>
+
+        <!-- NOTIFY FORM -->
+        <div class="notify-group">
+          <span class="notify-label">Benachrichtigt werden</span>
+          <div class="notify-row">
+            <input
+              class="notify-input"
+              type="email"
+              placeholder="deine@email.com"
+              id="emailInput"
+              autocomplete="email"
+            />
+            <button class="notify-btn" id="notifyBtn" type="button">
+              Notify me
+            </button>
+          </div>
+          <span class="notify-note">Kein Spam. Nur der Launch.</span>
+          <span class="notify-success" id="notifySuccess">
+            ✓ &nbsp;Du bist auf der Liste.
+          </span>
+        </div>
+
+        <!-- LOCATION -->
+        <div class="location-tag">
+          <div class="location-dot"></div>
+          <span class="location-text">Praterstraße 14 · 1020 Wien</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: IMAGE -->
+      <div class="col-image">
+        <img
+          src="img/pilates_model.jpg"
+          alt="House of IKKI — Performance Space"
+          class="hero-image"
+          loading="eager"
+        />
+        <div class="studio-label">
+          <span class="studio-label-text">Studio 1020, VIE</span>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-copy">© 2025 House of IKKI · Vienna</span>
+      <nav class="footer-links">
+        <a
+          class="footer-link"
+          href="https://www.instagram.com/houseofikki?igsh=MXQ0MG1qejBoOW1pYQ=="
+          target="_blank"
+          rel="noopener noreferrer"
+        >Instagram</a>
+        <a class="footer-link" href="mailto:">Kontakt</a>
+      </nav>
+    </footer>
+
+  </div>
+
+  <script>
+    // Notify form interaction
+    const btn = document.getElementById('notifyBtn');
+    const input = document.getElementById('emailInput');
+    const success = document.getElementById('notifySuccess');
+    const note = document.querySelector('.notify-note');
+
+    btn.addEventListener('click', () => {
+      const email = input.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        input.style.color = '#ff6b6b';
+        input.focus();
+        setTimeout(() => { input.style.color = ''; }, 800);
+        return;
+      }
+      // In production: replace with your email collection endpoint
+      btn.textContent = '✓';
+      btn.style.background = 'var(--celadon)';
+      input.style.opacity = '0.3';
+      input.disabled = true;
+      btn.disabled = true;
+      note.style.display = 'none';
+      success.style.display = 'block';
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btn.click();
+    });
+  </script>
+
+</body>
+</html>
