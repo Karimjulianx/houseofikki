@@ -1,0 +1,5 @@
+# Raw photography originals & source/reference files — not web assets.
+# Optimized versions live in img/studio/ and img/coffee/.
+img/Photos/
+*.zip
+*.pdf
