@@ -700,3 +700,25 @@ footer {
   font-family: var(--mono);
   font-size: 0.85em;
 }
+
+.legal-footnotes {
+  margin-top: 2.6rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+}
+.legal-footnotes h3 {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--carbon-faint);
+  margin: 1.6rem 0 0.5rem;
+}
+.legal-footnotes h3:first-of-type { margin-top: 0; }
+.legal-footnotes p {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--carbon-faint);
+}
+.legal-footnotes a { color: var(--carbon-faint); }
