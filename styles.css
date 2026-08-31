@@ -529,49 +529,42 @@ section { padding: clamp(3.5rem, 7vw, 6.5rem) 0; }
   color: var(--carbon);
   margin: 0.4rem 0 0;
 }
-/* ─── Preise ──────────────────────────────────────────────────── */
-/* Celadon ist laut Styleguide "sparsam" einzusetzen — daher hier als
-   Rahmen/Akzent statt als volle Fläche, Basis bleibt Grau hell. */
-.pricing {
+/* ─── Memberships ─────────────────────────────────────────────── */
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+  margin-bottom: clamp(2.2rem, 5vw, 3.2rem);
+}
+.membership-card {
   background: var(--grey-light);
   border: 1px solid var(--celadon);
-  border-radius: 28px;
-  margin: 0 clamp(1.25rem, 4vw, 3rem);
-  padding: clamp(2.6rem, 6vw, 4rem);
+  border-radius: 20px;
+  padding: 1.8rem 1.7rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 0.6rem;
 }
-.pricing-copy h2 {
+.membership-card h3 {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
-  margin: 0 0 0.6rem;
+  font-size: 1.24rem;
+  margin: 0.4rem 0 0;
 }
-.pricing-copy p { margin: 0; color: var(--carbon-soft); max-width: 30rem; }
-.pricing-figures {
-  display: flex;
-  gap: clamp(1.6rem, 4vw, 3rem);
-  flex-wrap: wrap;
-}
-.pricing-figure { text-align: left; max-width: 15rem; }
-.pricing-figure .amount {
+.membership-price {
   font-family: var(--sans);
   font-weight: 600;
-  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
-  line-height: 1.25;
-  display: block;
+  font-size: 2rem;
+  color: var(--carbon);
 }
-.pricing-figure .label {
+.membership-price-period {
   font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.85rem;
   color: var(--carbon-soft);
 }
-.pricing .btn-solid { flex-shrink: 0; }
+.membership-card p { margin: 0.3rem 0 0; color: var(--carbon-soft); font-size: 0.92rem; }
+.memberships-cta { display: flex; justify-content: center; }
 
 /* ─── Standort ────────────────────────────────────────────────── */
 .location {
@@ -605,8 +598,15 @@ footer {
   margin-top: clamp(3.5rem, 7vw, 6.5rem);
 }
 .footer-top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: start;
   padding-bottom: 2.6rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.footer-newsletter {
+  min-height: 3.5rem;
 }
 .footer-logo-img {
   height: 32px;
@@ -669,7 +669,7 @@ footer {
   .location { grid-template-columns: 1fr; }
   .location-visual { order: -1; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing { flex-direction: column; align-items: flex-start; }
+  .footer-top { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
