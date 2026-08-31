@@ -3,3 +3,5 @@
 img/Photos/
 *.zip
 *.pdf
+# ...except legal documents, which are real site assets (linked from the footer).
+!legal/*.pdf
