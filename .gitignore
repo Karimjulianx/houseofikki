@@ -2,6 +2,9 @@
 # Optimized versions live in img/studio/ and img/coffee/.
 img/Photos/
 *.zip
+*.docx
 *.pdf
-# ...except legal documents, which are real site assets (linked from the footer).
-!legal/*.pdf
+# ...except the two canonical legal PDFs actually linked from the site;
+# versioned/source exports (legal/HOI_*_v*.pdf) stay untracked.
+!legal/agb.pdf
+!legal/datenschutzerklaerung.pdf
